@@ -13,6 +13,7 @@ app.add_middleware(
     allow_headers=["Content-Type"],
 )
 
+
 @app.post("/message/")
 async def message(request: ChatRequest):
     message = request.message
@@ -21,5 +22,8 @@ async def message(request: ChatRequest):
 
     chat.enable_cache() if cache else chat.disable_cache()
 
-    response = chat.get_message(message=message, history=history,)
+    response = chat.get_message(
+        message=message,
+        history=history,
+    )
     return {"message": response}

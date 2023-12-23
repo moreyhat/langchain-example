@@ -8,7 +8,6 @@ services:
       - "8000:80"
     environment:
       - OPENAI_API_KEY
-  cache:
-    image: redis/redis-stack
-    ports:
-      - 6379
+      - HUGGING_FACE_API_KEY
+      - ASTRADB_ENDPOINT
+      - ASTRADB_TOKEN
