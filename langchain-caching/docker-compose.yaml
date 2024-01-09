@@ -9,5 +9,7 @@ services:
     environment:
       - OPENAI_API_KEY
       - HUGGING_FACE_API_KEY
-      - ASTRADB_ENDPOINT
-      - ASTRADB_TOKEN
+  cache:
+    image: redis/redis-stack:latest
+    ports:
+      - "6379:6379"

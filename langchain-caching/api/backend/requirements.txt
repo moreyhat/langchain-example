@@ -4,4 +4,3 @@ langchain
 openai
 redis
 tiktoken
-astrapy

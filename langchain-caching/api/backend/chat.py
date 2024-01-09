@@ -3,23 +3,21 @@ from pydantic import BaseModel
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
 from langchain.globals import set_llm_cache
-from langchain.cache import AstraDBSemanticCache
+from langchain.cache import RedisSemanticCache
 from langchain.embeddings import HuggingFaceInferenceAPIEmbeddings
 import os
 
 HUGGING_FACE_API_KEY = os.environ["HUGGING_FACE_API_KEY"]
-ASTRADB_ENDPOINT = os.environ["ASTRADB_ENDPOINT"]
-ASTRADB_TOKEN = os.environ["ASTRADB_TOKEN"]
 
 embedding = HuggingFaceInferenceAPIEmbeddings(
     api_key=HUGGING_FACE_API_KEY,
     model_name="pkshatech/GLuCoSE-base-ja",
 )
 
-cache_db = AstraDBSemanticCache(
-    api_endpoint=ASTRADB_ENDPOINT,
-    token=ASTRADB_TOKEN,
+cache_db = RedisSemanticCache(
+    redis_url="redis://cache:6379",
     embedding=embedding,
+    score_threshold=0.005,
 )
 
 set_llm_cache(cache_db)
